@@ -23,31 +23,42 @@ public class Chat_Body extends javax.swing.JPanel {
         init();
         addItemRight("does not word wrap it at all showiad. It would be interesting to support word wrap on ");
         addItemRight("does not word wrap it at all showiad. It would be interesting to support word wrap on ");
-        addItemLeft("hello\nsrsdf\nasad");
+        addItemLeft("hello\nsrsdf\nasad", "tanhun");
+        addDate("12/10/2022");
         addItemRight("hello\nsrsdf\nasad");
-        addItemLeft("hello\nsrsdf\nasad");
-        addItemLeft("hello\nsrsdf\nasad");
+        addItemLeft("hello\nsrsdf\nasad", "tanhun");
+        addItemLeft("hello\nsrsdf\nasad", "tanhun");
+        addDate("Today");
         addItemRight("hello\nsrsdf\nasad");
     }
-    
+
     private void init() {
         body.setLayout(new MigLayout("fillx", "", "5[]5"));
         sp.setVerticalScrollBar(new ScrollBar());
         sp.getVerticalScrollBar().setBackground(Color.WHITE);
     }
-    
-    public void addItemLeft(String text){
-        Chat_Left item = new Chat_Left();
+
+    public void addItemLeft(String text, String user) {
+        Chat_Left_With_Profile item = new Chat_Left_With_Profile();
         item.setText(text);
-        body.add(item, "wrap, w ::80%");
+        item.setUserProfile(user);
+        body.add(item, "wrap, w 100::80%");
         body.repaint();
         body.revalidate();
     }
-    
-    public void addItemRight(String text){
+
+    public void addItemRight(String text) {
         Chat_Right item = new Chat_Right();
         item.setText(text);
-        body.add(item, "wrap, al right, w ::80%");
+        body.add(item, "wrap, al right, w 100::80%");
+        body.repaint();
+        body.revalidate();
+    }
+
+    public void addDate(String date) {
+        Chat_Date item = new Chat_Date();
+        item.setDate(date);
+        body.add(item, "wrap, al center");
         body.repaint();
         body.revalidate();
     }
