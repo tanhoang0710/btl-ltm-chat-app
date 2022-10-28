@@ -17,22 +17,38 @@ public class Chat_Left_With_Profile extends javax.swing.JLayeredPane {
     /**
      * Creates new form Chat_Left
      */
-    public Chat_Left_With_Profile() {
+     public Chat_Left_With_Profile() {
         initComponents();
         txt.setBackground(new Color(242, 242, 242));
     }
-    
-    public void setUserProfile(String user){
+
+    public void setUserProfile(String user) {
         txt.setUserProfile(user);
     }
-    
-    public void setText(String text){
-        txt.setText(text);
-        txt.setTime("10:30 PM");
-    }
-    
+
     public void setImageProfile(Icon image) {
         Iaimage.setImage(image);
+    }
+
+    public void setText(String text) {
+        if (text.equals("")) {
+            txt.hideText();
+        } else {
+            txt.setText(text);
+        }
+
+    }
+
+    public void setImage(Icon... image) {
+        txt.setImage(false, image);
+    }
+
+    public void setImage(String... image) {
+        txt.setImage(false, image);
+    }
+
+    public void setTime() {
+        txt.setTime("10:30 PM");    //  Testing
     }
 
     /**

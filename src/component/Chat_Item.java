@@ -11,6 +11,7 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -35,7 +36,7 @@ public class Chat_Item extends javax.swing.JLayeredPane {
     }
     
     public void setUserProfile(String user) {
-        JLayeredPane layer = new JLayeredPane();
+         JLayeredPane layer = new JLayeredPane();
         layer.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         layer.setBorder(new EmptyBorder(10, 10, 0, 10));
         JButton cmd = new JButton(user);
@@ -44,7 +45,7 @@ public class Chat_Item extends javax.swing.JLayeredPane {
         cmd.setContentAreaFilled(false);
         cmd.setFocusable(false);
         cmd.setForeground(new Color(30, 121, 213));
-        cmd.setFont(new java.awt.Font("sansserif", 1, 14));
+        cmd.setFont(new java.awt.Font("sansserif", 1, 13));
         txt.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10));
         layer.add(cmd);
         add(layer, 0);
@@ -55,13 +56,33 @@ public class Chat_Item extends javax.swing.JLayeredPane {
     }
 
     public void setTime(String time) {
-        JLayeredPane layer = new JLayeredPane();
+         JLayeredPane layer = new JLayeredPane();
         layer.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
         layer.setBorder(new EmptyBorder(0, 5, 10, 5));
         label = new JLabel(time);
         label.setForeground(new Color(110, 110, 110));
         label.setHorizontalTextPosition(JLabel.LEFT);
         layer.add(label);
+        add(layer);
+    }
+    
+     public void setImage(boolean right, Icon... image) {
+        JLayeredPane layer = new JLayeredPane();
+        layer.setLayout(new FlowLayout(right ? FlowLayout.RIGHT : FlowLayout.LEFT));
+        layer.setBorder(new EmptyBorder(0, 5, 0, 5));
+        Chat_Image chatImage = new Chat_Image(right);
+        chatImage.addImage(image);
+        layer.add(chatImage);
+        add(layer);
+    }
+
+    public void setImage(boolean right, String... image) {
+        JLayeredPane layer = new JLayeredPane();
+        layer.setLayout(new FlowLayout(right ? FlowLayout.RIGHT : FlowLayout.LEFT));
+        layer.setBorder(new EmptyBorder(0, 5, 0, 5));
+        Chat_Image chatImage = new Chat_Image(right);
+        chatImage.addImage(image);
+        layer.add(chatImage);
         add(layer);
     }
     
@@ -75,6 +96,10 @@ public class Chat_Item extends javax.swing.JLayeredPane {
         if(label != null){
             label.setIcon(new ImageIcon(getClass().getResource("/icon/double_tick.png")));
         }
+    }
+    
+    public void hideText() {
+        txt.setVisible(false);
     }
 
     /**

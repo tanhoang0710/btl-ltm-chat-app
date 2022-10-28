@@ -5,8 +5,12 @@
  */
 package main;
 
+import event.EventImageView;
+import event.PublicEvent;
+import form.View_Image;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import swing.ComponentResizer;
@@ -26,12 +30,30 @@ public class Main extends javax.swing.JFrame {
     }
 
     private void init() {
-        setIconImage(new ImageIcon(getClass().getResource("/icon/icon.png")).getImage());
+          setIconImage(new ImageIcon(getClass().getResource("/icon/icon.png")).getImage());
         ComponentResizer com = new ComponentResizer();
         com.registerComponent(this);
         com.setMinimumSize(new Dimension(800, 500));
         com.setMaximumSize(Toolkit.getDefaultToolkit().getScreenSize());
         com.setSnapSize(new Dimension(10, 10));
+        vIew_Image.setVisible(false);
+        home.setVisible(true);
+        initEvent();
+    }
+    
+    private void initEvent() {
+        PublicEvent.getInstance().addEventImageView(new EventImageView() {
+            @Override
+            public void viewImage(Icon image) {
+                 vIew_Image.viewImage(image);
+            }
+
+            @Override
+            public void saveImage(Icon image) {
+                System.out.println("Save Image next update");
+            }
+            
+        });
     }
 
     /**
@@ -47,7 +69,9 @@ public class Main extends javax.swing.JFrame {
         cmdMinimize = new javax.swing.JButton();
         cmdClose = new javax.swing.JButton();
         body = new javax.swing.JLayeredPane();
-        home1 = new form.Home();
+        vIew_Image = new form.View_Image();
+        view_Image = new form.View_Image();
+        home = new form.Home();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -108,8 +132,11 @@ public class Main extends javax.swing.JFrame {
             .addComponent(cmdMinimize, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        body.setLayout(new java.awt.BorderLayout());
-        body.add(home1, java.awt.BorderLayout.CENTER);
+        body.setLayout(new java.awt.CardLayout());
+        body.setLayer(vIew_Image, javax.swing.JLayeredPane.POPUP_LAYER);
+        body.add(vIew_Image, "card3");
+        body.add(view_Image, "card4");
+        body.add(home, "card2");
 
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
         background.setLayout(backgroundLayout);
@@ -123,7 +150,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
+                .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 587, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -214,7 +241,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel border;
     private javax.swing.JButton cmdClose;
     private javax.swing.JButton cmdMinimize;
-    private form.Home home1;
+    private form.Home home;
     private javax.swing.JPanel title;
+    private form.View_Image vIew_Image;
+    private form.View_Image view_Image;
     // End of variables declaration//GEN-END:variables
 }
