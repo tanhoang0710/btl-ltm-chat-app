@@ -6,6 +6,8 @@
 package component;
 
 import java.awt.Color;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import net.miginfocom.swing.MigLayout;
 import swing.ScrollBar;
 
@@ -25,11 +27,12 @@ public class Chat_Body extends javax.swing.JPanel {
         addItemRight("does not word wrap it at all showiad. It would be interesting to support word wrap on ");
         addItemLeft("hello\nsrsdf\nasad", "tanhun");
         addDate("12/10/2022");
-        addItemRight("hello\nsrsdf\nasad");
-        addItemLeft("hello\nsrsdf\nasad", "tanhun");
-        addItemLeft("hello\nsrsdf\nasad", "tanhun");
+        String img[] = {"LPDuf69|NHsl~BOERkWUt7oyn+R,"};
+        addItemLeft("hello\nsrsdf\nasad", "tanhun", img);
+        addItemRight("hello\nsrsdf\nasad\n", new ImageIcon(getClass().getResource("/icon/testting/oto.jpg")));
+        addItemLeft("hello\nsrsdf\nasad", "tanhun", new ImageIcon(getClass().getResource("/icon/testting/dog.jpg")), new ImageIcon(getClass().getResource("/icon/testting/dog.jpg")));
         addDate("Today");
-        addItemRight("hello\nsrsdf\nasad");
+        addItemLeft("", "tanhun", new ImageIcon(getClass().getResource("/icon/testting/oto.jpg")));
     }
 
     private void init() {
@@ -38,19 +41,36 @@ public class Chat_Body extends javax.swing.JPanel {
         sp.getVerticalScrollBar().setBackground(Color.WHITE);
     }
 
-    public void addItemLeft(String text, String user) {
+     public void addItemLeft(String text, String user, Icon... image) {
         Chat_Left_With_Profile item = new Chat_Left_With_Profile();
         item.setText(text);
+        item.setImage(image);
+        item.setTime();
         item.setUserProfile(user);
         body.add(item, "wrap, w 100::80%");
+        //  ::80% set max with 80%
         body.repaint();
         body.revalidate();
     }
 
-    public void addItemRight(String text) {
+    public void addItemLeft(String text, String user, String[] image) {
+        Chat_Left_With_Profile item = new Chat_Left_With_Profile();
+        item.setText(text);
+        item.setImage(image);
+        item.setTime();
+        item.setUserProfile(user);
+        body.add(item, "wrap, w 100::80%");
+        //  ::80% set max with 80%
+        body.repaint();
+        body.revalidate();
+    }
+
+    public void addItemRight(String text, Icon... image) {
         Chat_Right item = new Chat_Right();
         item.setText(text);
+        item.setImage(image);
         body.add(item, "wrap, al right, w 100::80%");
+        //  ::80% set max with 80%
         body.repaint();
         body.revalidate();
     }
