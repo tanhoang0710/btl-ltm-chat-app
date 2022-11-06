@@ -5,9 +5,14 @@
  */
 package component;
 
+import java.awt.Adjustable;
 import java.awt.Color;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import net.miginfocom.swing.MigLayout;
 import swing.ScrollBar;
 
@@ -87,6 +92,8 @@ public class Chat_Body extends javax.swing.JPanel {
         //  ::80% set max with 80%
         body.repaint();
         body.revalidate();
+        item.setTime();
+        scrollToBottom();
     }
     
     public void addItemFileRight(String text, String fileName, String filesize) {
@@ -149,7 +156,18 @@ public class Chat_Body extends javax.swing.JPanel {
             .addComponent(sp, javax.swing.GroupLayout.Alignment.TRAILING)
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    private void scrollToBottom() {
+    JScrollBar verticalBar = sp.getVerticalScrollBar();
+    AdjustmentListener downScroller = new AdjustmentListener() {
+        @Override
+        public void adjustmentValueChanged(AdjustmentEvent e) {
+            Adjustable adjustable = e.getAdjustable();
+            adjustable.setValue(adjustable.getMaximum());
+            verticalBar.removeAdjustmentListener(this);
+        }
+    };
+    verticalBar.addAdjustmentListener(downScroller);
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel body;
